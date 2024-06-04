@@ -46,6 +46,7 @@ const Prefectures: FC<Props> = ({
         }
       }
     );
+    //選択中の都道府県名を更新
     setPrefec_info(new_prefec_info);
     const new_selected_prefec = newSelectedPrefec({
       prefec_code,
@@ -54,6 +55,7 @@ const Prefectures: FC<Props> = ({
     });
     setSelected_prefec(new_selected_prefec);
 
+    //表示される可能性のあるグラフデータを更新
     const new_graph_data = await newGraphData({
       prefec_code,
       prefec_info,
@@ -62,6 +64,7 @@ const Prefectures: FC<Props> = ({
     setGraph_data(new_graph_data);
   };
 
+  //都道府県情報が空である場合
   if (!prefec_info) {
     return (
       <div>

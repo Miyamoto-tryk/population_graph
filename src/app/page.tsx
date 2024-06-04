@@ -12,6 +12,7 @@ import {
 } from "@/types";
 import Prefectures from "@/components/Prefectures";
 import DisplayGraph from "@/components/DisplayGraph";
+import SetLabelButton from "@/components/SetLabelButton";
 
 export default function Home() {
   //都道府県の選択情報
@@ -48,6 +49,9 @@ export default function Home() {
           selected_prefec={selected_prefec}
           setDisplay_data={setDisplay_data}
         />
+      </div>
+      <div>
+        <SetLabelButton setDisplaylabel={setDisplay_label}></SetLabelButton>
       </div>
     </>
   );
