@@ -1,18 +1,26 @@
 import { fetchPrefec } from "@/api/fetcher";
-import { PrefectureInfo, Prefecture } from "@/types";
+import { newGraphData } from "@/data_controller/newGraphData";
+import { newSelectedPrefec } from "@/data_controller/newSelectedPrefec";
+import { PrefectureInfo, Prefecture, GraphData, PrefecName } from "@/types";
 import { Dispatch, SetStateAction, FC, useEffect } from "react";
 
 type Props = {
   prefec_info: PrefectureInfo[];
-
+  graph_data: GraphData[];
+  selected_prefec: PrefecName[];
   setPrefec_info: Dispatch<SetStateAction<PrefectureInfo[]>>;
+  setGraph_data: Dispatch<SetStateAction<GraphData[]>>;
+  setSelected_prefec: Dispatch<SetStateAction<PrefecName[]>>;
 };
 
 //都道府県一覧を表示
 const Prefectures: FC<Props> = ({
   prefec_info,
-
+  graph_data,
+  selected_prefec,
   setPrefec_info,
+  setGraph_data,
+  setSelected_prefec,
 }: Props) => {
   //都道府県一覧を取得し、選択情報を初期化
   useEffect(() => {
@@ -27,9 +35,9 @@ const Prefectures: FC<Props> = ({
     });
   }, []);
 
-  const HandleChange = (prefec_code: number) => {
+  const HandleChange = async (prefec_code: number) => {
     //都道府県の選択情報を更新
-    const newprefecInfo: PrefectureInfo[] = prefec_info.map(
+    const new_prefec_info: PrefectureInfo[] = prefec_info.map(
       (elm: PrefectureInfo) => {
         if (elm.prefecture.prefCode == prefec_code) {
           return { prefecture: elm.prefecture, isSelected: !elm.isSelected };
@@ -38,11 +46,22 @@ const Prefectures: FC<Props> = ({
         }
       }
     );
-    setPrefec_info(newprefecInfo);
-    console.log(newprefecInfo);
+    setPrefec_info(new_prefec_info);
+    const new_selected_prefec = newSelectedPrefec({
+      prefec_code,
+      prefec_info,
+      selected_prefec,
+    });
+    setSelected_prefec(new_selected_prefec);
+
+    const new_graph_data = await newGraphData({
+      prefec_code,
+      prefec_info,
+      graph_data,
+    });
+    setGraph_data(new_graph_data);
   };
 
-  //チェックボックスが押されたら選択情報を更新
   if (!prefec_info) {
     return (
       <div>
