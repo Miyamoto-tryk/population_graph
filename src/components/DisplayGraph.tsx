@@ -22,7 +22,7 @@ import {
   addPrefecColor,
   colorPrefecMap,
 } from "../data_controller/colorPrefecMap";
-
+import styles from "@/app/page.module.css";
 type Props = {
   display_label: DisplayLabel;
   graph_data: GraphData[];
@@ -69,12 +69,12 @@ const DisplayGraph = ({
   //グラフの描画
   return (
     <>
-      <div>
-        <ResponsiveContainer width="80%" height={400}>
+      <div className={styles.flex_row}>
+        <ResponsiveContainer width="90%" height={400}>
           <LineChart data={display_data}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="year" />
-            <YAxis dataKey={selected_prefec[0]} />
+            <YAxis />
             {selected_prefec.map((prefec_name: PrefecName) => {
               //都道府県の色が記録されていない場合、追加
               if (!colorPrefecMap.has(prefec_name)) addPrefecColor(prefec_name);

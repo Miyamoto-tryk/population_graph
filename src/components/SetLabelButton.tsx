@@ -1,5 +1,6 @@
 import { DisplayData, DisplayLabel } from "@/types";
 import { Dispatch, SetStateAction } from "react";
+import styles from "@/app/page.module.css";
 
 type Props = {
   setDisplaylabel: Dispatch<SetStateAction<DisplayLabel>>;
@@ -22,7 +23,7 @@ const SetLabelButton = ({ setDisplaylabel }: Props) => {
 
   return (
     <>
-      <div>
+      <div className={styles.flex_row}>
         {/* ボタンを並べる */}
         {displayLabels.map((label: DisplayLabel) => (
           <div key={label} dir="column">

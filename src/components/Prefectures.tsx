@@ -3,6 +3,7 @@ import { newGraphData } from "@/data_controller/newGraphData";
 import { newSelectedPrefec } from "@/data_controller/newSelectedPrefec";
 import { PrefectureInfo, Prefecture, GraphData, PrefecName } from "@/types";
 import { Dispatch, SetStateAction, FC, useEffect } from "react";
+import styles from "../app/page.module.css";
 
 type Props = {
   prefec_info: PrefectureInfo[];
@@ -76,7 +77,7 @@ const Prefectures: FC<Props> = ({
     <>
       <div>
         <h2>都道府県一覧</h2>
-        <div>
+        <div className={styles.flex_row}>
           {prefec_info.map((prefecInfo: PrefectureInfo) => (
             //都道府県一覧とチェックボックスを生成
             <div key={prefecInfo.prefecture.prefCode}>
