@@ -14,7 +14,8 @@ export const fetchPrefec = async (): Promise<Prefecture[]> => {
   );
   //TODO: 型ガード関数の実装
   const prefectures = await res.json();
-  console.log(prefectures.result);
+  console.log(prefectures);
+  //console.log(prefectures.result);
   return prefectures.result;
 };
 
@@ -30,7 +31,8 @@ export const fetchCompos = async (
     { method: "GET", headers: headers }
   );
   const ans = await res.json();
+  console.log(ans);
   const compos = ans.result;
-  console.log(compos);
+  //console.log(compos);
   return compos;
 };

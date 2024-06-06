@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Prefectures Component PrefecCheckboxes matches snapshot 1`] = `
+<div>
+  <h2>
+    都道府県を取得中...
+  </h2>
+</div>
+`;

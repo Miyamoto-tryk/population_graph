@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import styles from "@/app/page.module.css";
 
 type Props = {
-  setDisplaylabel: Dispatch<SetStateAction<DisplayLabel>>;
+  setDisplayLabel: Dispatch<SetStateAction<DisplayLabel>>;
 };
 
 //ラベルの種類
@@ -15,15 +15,22 @@ const displayLabels: DisplayLabel[] = [
 ];
 
 //ボタンを表示
-const SetLabelButton = ({ setDisplaylabel }: Props) => {
+const SetLabelButton = ({ setDisplayLabel }: Props) => {
   const handleClick = (label: DisplayLabel) => {
     //ボタンが押されたらラベルを設定
-    setDisplaylabel(label);
+    setDisplayLabel(label);
   };
 
   return (
     <>
-      <div className={styles.flex_row}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          gap: "10px",
+        }}
+      >
         {/* ボタンを並べる */}
         {displayLabels.map((label: DisplayLabel) => (
           <div key={label} dir="column">

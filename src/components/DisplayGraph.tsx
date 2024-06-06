@@ -24,66 +24,76 @@ import {
 } from "../data_controller/colorPrefecMap";
 import styles from "@/app/page.module.css";
 type Props = {
-  display_label: DisplayLabel;
-  graph_data: GraphData[];
-  display_data: DisplayData[];
-  selected_prefec: PrefecName[];
-  setDisplay_data: Dispatch<SetStateAction<DisplayData[]>>;
+  displayLabel: DisplayLabel;
+  graphData: GraphData[];
+  displayData: DisplayData[];
+  selectedPrefec: PrefecName[];
+  setDisplayData: Dispatch<SetStateAction<DisplayData[]>>;
 };
 
 const DisplayGraph = ({
-  display_label,
-  graph_data,
-  display_data,
-  selected_prefec,
-  setDisplay_data,
+  displayLabel,
+  graphData,
+  displayData,
+  selectedPrefec,
+  setDisplayData,
 }: Props) => {
   //表示データの抽出・更新
   useEffect(() => {
-    console.log(typeof graph_data);
-    const newdisplay_data = extractLabelData({ graph_data, display_label });
-    setDisplay_data(newdisplay_data);
-  }, [graph_data, display_label]);
+    console.log(typeof graphData);
+    const newDisplayData = extractLabelData({ graphData, displayLabel });
+    setDisplayData(newDisplayData);
+  }, [graphData, displayLabel]);
 
-  if (!graph_data || graph_data.length === 0) {
-    //グラフデータが空の場合
+  if (graphData.length === 0) {
     return (
-      <div>
+      <div
+        style={{
+          display: "flex",
+          height: 400,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <h3>Please select prefectures</h3>
       </div>
     );
   }
 
-  if (
-    //表示データが揃っていない場合
-    Object.keys(display_data[0]).length <= 1 ||
-    selected_prefec.length === 0
-  ) {
+  //表示データが揃っていない場合
+  if (Object.keys(displayData[0]).length <= 1 || selectedPrefec.length === 0) {
     return (
-      <div>
+      <div
+        style={{
+          display: "flex",
+          height: 400,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <h3>データ取得中</h3>
       </div>
     );
   }
-  console.log(selected_prefec);
+  console.log(selectedPrefec);
   //グラフの描画
   return (
     <>
-      <div className={styles.flex_row}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <ResponsiveContainer width="90%" height={400}>
-          <LineChart data={display_data}>
+          <LineChart data={displayData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="year" />
             <YAxis />
-            {selected_prefec.map((prefec_name: PrefecName) => {
+            {selectedPrefec.map((prefecName: PrefecName) => {
               //都道府県の色が記録されていない場合、追加
-              if (!colorPrefecMap.has(prefec_name)) addPrefecColor(prefec_name);
+              if (!colorPrefecMap.has(prefecName)) addPrefecColor(prefecName);
               return (
                 <Line
-                  key={prefec_name}
+                  key={prefecName}
                   type="monotone"
-                  dataKey={prefec_name}
-                  stroke={colorPrefecMap.get(prefec_name)}
+                  dataKey={prefecName}
+                  stroke={colorPrefecMap.get(prefecName)}
                 />
               );
             })}
