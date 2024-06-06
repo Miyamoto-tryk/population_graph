@@ -15,9 +15,9 @@ import DisplayGraph from "@/components/DisplayGraph";
 import SetLabelButton from "@/components/SetLabelButton";
 
 export default function Home() {
-  //表示される可能性のあるグラフデータ("総人口"、"幼年人口"など全て含む)
+  //表示される可能性のあるグラフデータ("総人口"、"幼年人口"など全て含む)(選択中の都道府県の人口データだけを持つ)
   const [graphData, setGraphData] = useState<GraphData[]>([]);
-  //選択されている都道府県名の配列
+  //選択されている都道府県名の配列。グラフ表示する際に、選択中の都道府県のみでmapで展開するために必要
   const [selectedPrefec, setSelectedPrefec] = useState<PrefecName[]>([]);
   //表示すべきデータの種類(display_abelで指定された人口データのみを含む
   const [displayData, setDisplayData] = useState<DisplayData[]>([]);
