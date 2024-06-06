@@ -34,3 +34,43 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+##　 ディレクトリ構造
+.
+├── README.md
+├── jest.config.js
+├── next-env.d.ts
+├── next.config.mjs
+├── node_modules
+├── package-lock.json
+├── package.json
+├── public
+│   ├── next.svg
+│   └── vercel.svg
+├── src
+│   ├── **tests**　　#テスト用フォルダ
+│   │   ├── PrefecCheckboxes.test.tsx
+│   │   ├── **snapshots**
+│   │   └── fetcher.test.tsx
+│   ├── api
+│   │   └── fetcher.tsx # API リクエストを行う関数をまとめた
+│   ├── app
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── page.module.css
+│   │   └── page.tsx 　　　　　　#　コンポーネントをまとめて表示する
+│   ├── components #　コンポーネントフォルダ
+│   │   ├── DisplayGraph.tsx #　グラフ描画コンポーネント
+│   │   ├── PrefecCheckboxes.tsx 　#　チェクボックス作成コンポーネント
+│   │   └── SetLabelButton.tsx 　 #　表示切り替えボタンコンポーネント
+│   ├── data_controller 　 #　 components 中で使用する少し長い関数など
+│   │   ├── colorPrefecMap.ts 　 #　グラフの色を管理
+│   │   ├── extractLabelData.ts 　 #　グラフに表示するデータを抽出する
+│   │   ├── getGraphData.ts 　　 #　都道府県の人口構成データをフェッチ/削除を行う
+│   │   └── getSelectedPrefec.ts 　#　表示中の都道府県名を追加/削除を行う
+│   └── types.tsx 　　　　　　　　　#　型定義ファイル
+├── test
+│   ├── setupTests.ts
+│   └── tsconfig.jest.json
+└── tsconfig.json

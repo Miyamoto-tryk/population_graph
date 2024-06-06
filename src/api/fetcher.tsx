@@ -12,7 +12,7 @@ export const fetchPrefec = async (): Promise<Prefecture[]> => {
     "https://opendata.resas-portal.go.jp/api/v1/prefectures",
     { method: "GET", headers: headers }
   );
-  //TODO: 型ガード関数の実装
+
   const prefectures = await res.json();
 
   //console.log(prefectures.result);
