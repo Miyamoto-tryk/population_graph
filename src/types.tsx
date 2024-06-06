@@ -41,7 +41,7 @@ export type ComposResponse = {
 };
 
 //動的なプロパティ(都道府県名)を持つ。
-//recharts(グラフ描画ライブラリ)に渡すためのデータ
+//recharts(グラフ描画ライブラリ)に渡すためのデータ型
 export type DisplayData = {
   [prop in PrefecName]?: number;
 } & {
