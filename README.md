@@ -36,6 +36,8 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 ##　 ディレクトリ構造
+
+```bash
 .
 ├── README.md
 ├── jest.config.js
@@ -74,3 +76,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 │   ├── setupTests.ts
 │   └── tsconfig.jest.json
 └── tsconfig.json
+```
