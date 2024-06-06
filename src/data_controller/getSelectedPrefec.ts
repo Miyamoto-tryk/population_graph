@@ -14,7 +14,7 @@ export const getSelectedPrefec = ({
     //新しく都道府県が選択された
     //選択された都道府県名を更新
     const selectedName = prefecInfo[prefecCode - 1].prefecture.prefName;
-    if (selectedPrefec == undefined || selectedPrefec.length == 0) {
+    if (selectedPrefec.length === 0) {
       const newSelectedPrefec: PrefecName[] = [selectedName];
       return newSelectedPrefec;
     } else {

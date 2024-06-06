@@ -40,7 +40,6 @@ const DisplayGraph = ({
 }: Props) => {
   //表示データの抽出・更新
   useEffect(() => {
-    console.log(typeof graphData);
     const newDisplayData = extractLabelData({ graphData, displayLabel });
     setDisplayData(newDisplayData);
   }, [graphData, displayLabel]);
@@ -75,7 +74,7 @@ const DisplayGraph = ({
       </div>
     );
   }
-  console.log(selectedPrefec);
+
   //グラフの描画
   return (
     <>

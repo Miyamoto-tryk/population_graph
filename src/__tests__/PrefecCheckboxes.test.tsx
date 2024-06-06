@@ -85,52 +85,55 @@ describe("Prefectures Component", () => {
     await waitFor(() => expect(mockSetPrefec).toHaveBeenCalledTimes(1));
     expect(mockSetPrefec).toHaveBeenCalledWith(mockPrefecInfo);
   });
-  // it("updates selection state when checkbox is clicked", async () => {
-  //   //fetchPrefecのモック
-  //   (fetchPrefec as jest.Mock).mockResolvedValue([
-  //     { prefCode: 1, prefName: "北海道" },
-  //     { prefCode: 2, prefName: "青森県" },
-  //   ]);
-  //   //fetchComposのモック
-  //   (fetchCompos as jest.Mock).mockResolvedValue({
-  //     data: [
-  //       {
-  //         label: "総人口",
-  //         data: [
-  //           { year: 1960, value: 9683802 },
-  //           { year: 1965, value: 10869244 },
-  //         ],
-  //       },
-  //     ],
-  //   });
-  //   const mockNewPrefecInfo: PrefectureInfo[] = [
-  //     { prefecture: { prefCode: 1, prefName: "北海道" }, isSelected: true },
-  //     { prefecture: { prefCode: 2, prefName: "青森県" }, isSelected: false },
-  //   ];
-  //   // useStateのモック作成
-  //   const mockUseState = jest.spyOn(React, "useState");
-  //   const mockSetPrefecInfo = jest.fn();
-  //   mockUseState.mockImplementation(() => [[], mockSetPrefecInfo]);
 
-  //   render(
-  //     <PrefecCheckboxes
-  //       graphData={[]}
-  //       selectedPrefec={[]}
-  //       setGraphData={mockSetGraphData}
-  //       setSelectedPrefec={mockSetSelectedPrefec}
-  //     />
-  //   );
+  it("updates selection state when checkbox is clicked", async () => {
+    //fetchPrefecのモック
+    (fetchPrefec as jest.Mock).mockResolvedValue([
+      { prefCode: 1, prefName: "北海道" },
+      { prefCode: 2, prefName: "青森県" },
+    ]);
+    //fetchComposのモック
+    (fetchCompos as jest.Mock).mockResolvedValue([
+      {
+        label: "総人口",
+        data: [
+          { year: 1960, value: 9683802 },
+          { year: 1965, value: 10869244 },
+        ],
+      },
+    ]);
+    const mockNewPrefecInfo: PrefectureInfo[] = [
+      { prefecture: { prefCode: 1, prefName: "北海道" }, isSelected: true },
+      { prefecture: { prefCode: 2, prefName: "青森県" }, isSelected: false },
+    ];
+    // useStateのモック作成
+    const mockUseState = jest.spyOn(React, "useState");
+    const mockSetPrefecInfo = jest.fn();
+    mockUseState.mockImplementation(() => [mockPrefecInfo, mockSetPrefecInfo]);
 
-  //   await waitFor(async () => {
-  //     const checkbox = (await screen.getByLabelText(
-  //       "北海道"
-  //     )) as HTMLInputElement;
-  //     act(async () => {
-  //       fireEvent.click(checkbox);
-  //     });
-  //     expect(mockSetPrefecInfo).toHaveBeenCalledWith(mockNewPrefecInfo);
-  //     expect(mockSetSelectedPrefec).toHaveBeenCalled();
-  //     expect(mockSetGraphData).toHaveBeenCalled();
-  //   });
-  // });
+    render(
+      <PrefecCheckboxes
+        graphData={[]}
+        selectedPrefec={[]}
+        setGraphData={mockSetGraphData}
+        setSelectedPrefec={mockSetSelectedPrefec}
+      />
+    );
+    await waitFor(async () => {
+      expect(mockSetPrefecInfo).toHaveBeenCalledTimes(1);
+    });
+    // await waitFor(() =>
+    //   expect(screen.getByText("都道府県を取得中...")).not.toBeInTheDocument()
+    // );
+
+    await waitFor(async () => {
+      const checkbox = (await screen.getByText("北海道")) as HTMLInputElement;
+      await act(async () => {
+        fireEvent.click(checkbox);
+      });
+      expect(mockSetPrefecInfo).toHaveBeenCalledWith(mockNewPrefecInfo);
+      expect(mockSetSelectedPrefec).toHaveBeenCalled();
+      expect(mockSetGraphData).toHaveBeenCalled();
+    });
+  });
 });

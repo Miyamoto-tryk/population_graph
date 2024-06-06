@@ -25,7 +25,7 @@ export const getGraphData = async ({
     const prefName = prefecInfo[prefecCode - 1].prefecture.prefName;
     //新しく都道府県が選択された
     //人口構成を取得
-    const addGraphData = await fetchCompos(prefecCode).then(
+    const addGraphData: GraphData[] = await fetchCompos(prefecCode).then(
       (composData: ComposeDatas[]) => {
         return composData.map((elm: ComposeDatas) => {
           /* ComposeDatas{data: PoplAndYear[], label: DisplayLabel } */
