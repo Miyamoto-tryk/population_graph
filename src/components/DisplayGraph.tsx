@@ -83,7 +83,10 @@ const DisplayGraph = ({
           <LineChart data={displayData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="year" />
-            <YAxis />
+            <YAxis
+              tickFormatter={(tick) => `${tick / 1000}k`}
+              minTickGap={10}
+            />
             {selectedPrefec.map((prefecName: PrefecName) => {
               //都道府県の色が記録されていない場合、追加
               if (!colorPrefecMap.has(prefecName)) addPrefecColor(prefecName);

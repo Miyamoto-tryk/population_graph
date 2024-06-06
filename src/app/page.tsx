@@ -29,6 +29,7 @@ export default function Home() {
       <div>
         <h1>都道府県別人口推移グラフ</h1>
       </div>
+
       <div>
         <PrefecCheckboxes
           graphData={graphData}
@@ -37,6 +38,7 @@ export default function Home() {
           setSelectedPrefec={setSelectedPrefec}
         ></PrefecCheckboxes>
       </div>
+
       <div>
         <DisplayGraph
           displayLabel={displayLabel}
@@ -46,8 +48,19 @@ export default function Home() {
           setDisplayData={setDisplayData}
         />
       </div>
+
       <div>
         <SetLabelButton setDisplayLabel={setDisplayLabel}></SetLabelButton>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <h2>{displayLabel}を表示中</h2>
       </div>
     </>
   );
