@@ -62,7 +62,9 @@ describe("fetchCompos", () => {
 
     const prefCode = 13; // 東京都のコード
     const compos = await fetchCompos(prefCode);
-    expect(compos).toHaveProperty("data"); // データが含まれることを確認
+    expect(compos).toHaveLength(2);
+    expect(compos[0]).toHaveProperty("data"); // データが含まれることを確認
+    expect(compos[0]).toHaveProperty("label"); //"総人口"などのラベルを持つことを確認
     // TODO:他の期待値の確認...
   });
 

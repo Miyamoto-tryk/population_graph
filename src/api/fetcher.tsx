@@ -1,4 +1,4 @@
-import { Prefecture, ComposResponse } from "../types";
+import { Prefecture, ComposResponse, ComposeDatas } from "../types";
 
 const api_key = process.env.NEXT_PUBLIC_RESAS_API_KEY;
 const headers = new Headers();
@@ -22,7 +22,7 @@ export const fetchPrefec = async (): Promise<Prefecture[]> => {
 //人口構成をAPIから取得
 export const fetchCompos = async (
   prefCode: number
-): Promise<ComposResponse> => {
+): Promise<ComposeDatas[]> => {
   if (prefCode > 47 || prefCode < 1) {
     throw new Error("prefecture code が不正です");
   }
@@ -32,7 +32,7 @@ export const fetchCompos = async (
   );
   const ans = await res.json();
   console.log(ans);
-  const compos = ans.result;
+  const compos: ComposeDatas[] = Object.values(ans.result.data);
   //console.log(compos);
   return compos;
 };

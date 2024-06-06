@@ -1,14 +1,21 @@
+//年と人口。APIレスポンスの、各年の人口を表す型
+export type PeoplAndYear = {
+  year: number;
+  value: number;
+};
 //人口データ
 export type PoplData = {
   year: number;
   value: number;
   PrefName: PrefecName;
+  //DisplayData型へ変換しやすいようにPrefName型も保持している
 };
-
-//県名と人口。APIレスポンスの、各年の人口を表す型
-export type PeoplAndYear = {
-  year: number;
-  value: number;
+//選択中の都道府県の、すべての人口データを、
+//GraphData[]として保持する
+export type GraphData = {
+  label: DisplayLabel;
+  prefCode: number;
+  data: PoplData[];
 };
 
 //都道府県情報(都道府県名、都道府県コード)
@@ -16,7 +23,6 @@ export type Prefecture = {
   prefCode: number;
   prefName: PrefecName; //"北海道"or"青森県"or...
 };
-
 //都道府県チェックボックスの情報
 export type PrefectureInfo = {
   prefecture: Prefecture;
@@ -25,22 +31,17 @@ export type PrefectureInfo = {
 
 //APIレスポンスに含まれる各種人口データの型
 export type ComposeDatas = {
-  data: PeoplAndYear[]; //[year | value]
+  data: PeoplAndYear[]; //[{year , value}, ...]
   label: DisplayLabel; //"総人口"or"年少人口"or...
 };
 //都道府県別APIレスポンスの返り値型
 export type ComposResponse = {
   boundaryYear: number; //2020
-  data: ComposeDatas[]; //[0]:総人口|[1]:年少人口|[2]:生産年齢人口|[[3]:老年人口
-};
-export type GraphData = {
-  label: DisplayLabel;
-  prefCode: number;
-  data: PoplData[];
+  data: ComposeDatas[]; //[0]:総人口,[1]:年少人口,[2]:生産年齢人口,[[3]:老年人口
 };
 
 //動的なプロパティ(都道府県名)を持つ。
-//rechartsに渡すためのデータ
+//recharts(グラフ描画ライブラリ)に渡すためのデータ
 export type DisplayData = {
   [prop in PrefecName]?: number;
 } & {
@@ -48,7 +49,6 @@ export type DisplayData = {
 };
 //プロパティと人口データの追加
 export const addPoplData = (
-  //プロパティ(県名)とその値(人口）を追加
   displayData: DisplayData[], //元のデータ
   poplData: PoplData[] //追加するデータ
 ): DisplayData[] => {

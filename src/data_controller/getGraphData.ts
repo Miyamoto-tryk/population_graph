@@ -15,29 +15,34 @@ type Props = {
   prefecInfo: PrefectureInfo[];
   graphData: GraphData[];
 };
-export const getGraphData = ({ prefecCode, prefecInfo, graphData }: Props) => {
+export const getGraphData = async ({
+  prefecCode,
+  prefecInfo,
+  graphData,
+}: Props) => {
   //選択された都道府県のデータをフェッチ
   if (!prefecInfo[prefecCode - 1].isSelected) {
+    const prefName = prefecInfo[prefecCode - 1].prefecture.prefName;
     //新しく都道府県が選択された
     //人口構成を取得
-    const newGraphData = fetchCompos(prefecCode).then((composData) => {
-      const addGraphData: GraphData[] = composData.data.map(
-        (elm: ComposeDatas) => {
+    const addGraphData = await fetchCompos(prefecCode).then(
+      (composData: ComposeDatas[]) => {
+        return composData.map((elm: ComposeDatas) => {
           /* ComposeDatas{data: PoplAndYear[], label: DisplayLabel } */
-          const newPoplData: PoplData[] = elm.data.map((data: PeoplAndYear) => {
-            const prefName = prefecInfo[prefecCode - 1].prefecture.prefName;
-            return { ...data, PrefName: prefName };
-          });
+
+          const newPoplData: PoplData[] = elm.data.map(
+            (data: PeoplAndYear) => ({ ...data, PrefName: prefName })
+          );
+
           return {
             prefCode: prefecCode,
             label: elm.label,
             data: newPoplData,
           };
-        }
-      );
-      const newGraphData: GraphData[] = [...graphData, ...addGraphData];
-      return newGraphData;
-    });
+        });
+      }
+    );
+    const newGraphData: GraphData[] = [...graphData, ...addGraphData];
     return newGraphData;
   } else {
     //都道府県[prefCode:num]のチェックボックスが外れた
